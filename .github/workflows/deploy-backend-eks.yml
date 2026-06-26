@@ -39,15 +39,15 @@ jobs:
 
       - name: OpenRewrite dry-run
         continue-on-error: true
-        run: ./gradlew rewriteDryRun -Dnet.bytebuddy.experimental=true
+        run: sh gradlew rewriteDryRun -Dnet.bytebuddy.experimental=true
 
       - name: Spotless check
         continue-on-error: true
-        run: ./gradlew spotlessCheck
+        run: sh gradlew spotlessCheck
 
       - name: PMD main y test
         continue-on-error: true
-        run: ./gradlew pmdMain pmdTest
+        run: sh gradlew pmdMain pmdTest
 
       - name: Publicar reporte PMD
         if: always()
@@ -83,7 +83,7 @@ jobs:
 
       - name: Compilar, testear y generar cobertura
         continue-on-error: true
-        run: ./gradlew clean check jacocoTestReport -Dnet.bytebuddy.experimental=true
+        run: sh gradlew clean check jacocoTestReport -Dnet.bytebuddy.experimental=true
 
       - name: Publicar resultados de tests
         if: always()
@@ -164,13 +164,13 @@ jobs:
           path: build/reports/jacoco/test/
 
       - name: Compilar para analisis
-        run: ./gradlew clean assemble -x test -Dnet.bytebuddy.experimental=true
+        run: sh gradlew clean assemble -x test -Dnet.bytebuddy.experimental=true
 
       - name: SonarCloud automatic analysis activo
         run: |
           echo "SonarCloud ya tiene Automatic Analysis activo para este proyecto."
           echo "Se omite el task Gradle sonar para evitar el error: Automatic Analysis is enabled."
-          echo "Si quieres que SonarCloud sea gate bloqueante en GitHub Actions, desactiva Automatic Analysis en SonarCloud y vuelve a habilitar ./gradlew sonar en este workflow."
+          echo "Si quieres que SonarCloud sea gate bloqueante en GitHub Actions, desactiva Automatic Analysis en SonarCloud y vuelve a habilitar sh gradlew sonar en este workflow."
 
       - name: Instalar Snyk CLI
         run: npm install -g snyk@latest
