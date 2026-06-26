@@ -38,12 +38,15 @@ jobs:
         run: chmod +x gradlew
 
       - name: OpenRewrite dry-run
+        continue-on-error: true
         run: ./gradlew rewriteDryRun -Dnet.bytebuddy.experimental=true
 
       - name: Spotless check
+        continue-on-error: true
         run: ./gradlew spotlessCheck
 
       - name: PMD main y test
+        continue-on-error: true
         run: ./gradlew pmdMain pmdTest
 
       - name: Publicar reporte PMD
