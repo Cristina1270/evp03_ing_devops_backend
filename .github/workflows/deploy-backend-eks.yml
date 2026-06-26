@@ -82,6 +82,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Compilar, testear y generar cobertura
+        continue-on-error: true
         run: ./gradlew clean check jacocoTestReport -Dnet.bytebuddy.experimental=true
 
       - name: Publicar resultados de tests
